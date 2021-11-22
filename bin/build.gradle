@@ -1,0 +1,30 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+// Spock works with Java 1.8 and above
+sourceCompatibility = 1.8
+
+repositories {
+  // Spock releases are available from Maven Central
+  mavenCentral()
+  // Spock snapshots are available from the Sonatype OSS snapshot repository
+  maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+test {
+
+    useJUnitPlatform()
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+dependencies {
+  implementation "org.codehaus.groovy:groovy:3.0.8"
+  testImplementation platform("org.spockframework:spock-bom:2.0-groovy-3.0")
+  testImplementation "org.spockframework:spock-core"
+	testImplementation 'ch.qos.logback:logback-classic:1.2.3'
+	testImplementation 'org.slf4j:slf4j-api:1.7.7'
+}
